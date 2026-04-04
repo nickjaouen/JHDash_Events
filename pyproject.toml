@@ -1,0 +1,23 @@
+[project]
+name = "jh-knowledge-v2"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "asyncpg>=0.31.0",
+    "chromium>=0.0.0",
+    "dotenv>=0.9.9",
+    "langchain-cohere>=0.5.0",
+    "langchain-core>=1.2.23",
+    "langchain-openai>=1.1.12",
+    "langchain-postgres>=0.0.17",
+    "langchain-tools>=0.1.34",
+    "langgraph>=1.1.4",
+    "langgraph-checkpoint-postgres>=3.0.5",
+    "playwright>=1.58.0",
+    "pydantic>=2.12.5",
+    "pygraphviz>=1.14",
+    "sqlalchemy>=2.0.48",
+    "tavily>=1.1.0",
+]
