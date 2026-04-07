@@ -33,4 +33,4 @@ CREATE TABLE IF NOT EXISTS CanonicalNames (
 );
 
 -- Add a unique constraint on raw_name and name_type
-ALTER TABLE canonical_names ADD CONSTRAINT unique_raw_name_name_type UNIQUE (raw_name, name_type);
+ALTER TABLE CanonicalNames ADD CONSTRAINT unique_raw_name_name_type UNIQUE (raw_name, name_type);

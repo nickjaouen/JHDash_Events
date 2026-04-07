@@ -20,6 +20,9 @@ Install dependencies from `pyproject.toml`:
 uv sync
 ```
 
+Install Playwright
+.venv/bin/playwright install chromium
+
 ## Run
 
 ```bash
@@ -30,7 +33,6 @@ Activate the environment manually if you prefer:
 
 ```bash
 source .venv/bin/activate
-python main.py
 ```
 
 ## Add dependencies

@@ -13,8 +13,8 @@ from langchain_postgres import PGEngine, PGVectorStore
 
 _ = load_dotenv()
 
-TABLE_NAME = "canonical_names"
-EVENTS_TABLE_NAME = "events"
+TABLE_NAME = "CanonicalNames"
+EVENTS_TABLE_NAME = "Events"
 SUPPORTED_NAME_TYPES = {"venue_name", "host_organization_name"}
 EVENT_METADATA_COLUMNS = [
     "event_name",

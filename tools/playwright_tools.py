@@ -6,6 +6,7 @@ from langchain_core.tools import tool
 from playwright.async_api import Browser, BrowserContext, Page, Playwright, async_playwright
 
 CONTROL_CHARACTER_PATTERN = re.compile(r"[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]")
+WHITESPACE_PATTERN = re.compile(r"\s+")
 NAVIGATION_ATTEMPTS = 2
 
 
@@ -80,9 +81,16 @@ async def close_page(playwright: Playwright, browser: Browser, context: BrowserC
     await playwright.stop()
 
 
+def _sanitize_text(text_value: str) -> str:
+    # Strip control bytes and collapse whitespace before values leave the scraper.
+    without_controls = CONTROL_CHARACTER_PATTERN.sub("", text_value)
+    collapsed_whitespace = WHITESPACE_PATTERN.sub(" ", without_controls)
+    return collapsed_whitespace.strip()
+
+
 def _string_value(value: object) -> str:
     if isinstance(value, str):
-        return CONTROL_CHARACTER_PATTERN.sub("", value)
+        return _sanitize_text(value)
     return ""
 
 
@@ -121,7 +129,10 @@ async def _extract_text_bundle(url: str) -> dict[str, object]:
                 const body = document.body;
                 const MAX_INLINE_LINK_LENGTH = 600;
 
-                const clean = (s) => (s || "").replace(/\\s+/g, " ").trim();
+                const clean = (value) => (value || "")
+                    .replace(/[\\u0000-\\u0008\\u000B\\u000C\\u000E-\\u001F\\u007F]/g, "")
+                    .replace(/\\s+/g, " ")
+                    .trim();
 
                 const isVisible = (el) => {{
                     const style = window.getComputedStyle(el);
