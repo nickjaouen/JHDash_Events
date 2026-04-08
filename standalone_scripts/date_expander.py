@@ -177,7 +177,7 @@ async def fetch_events_for_expansion(
             event_time,
             event_description,
             occurrences
-        FROM events
+        FROM "Events"
         WHERE occurrences = '{}'::jsonb
            OR occurrences = '[]'::jsonb
         ORDER BY created_at DESC
@@ -203,7 +203,7 @@ async def update_event_occurrences_jsonb(
     print(f"[update] Writing {len(occurrences_payload)} occurrence(s) for event_id={event_id}")
     update_statement = text(
         """
-        UPDATE events
+        UPDATE "Events"
         SET occurrences = CAST(:occurrences_json AS jsonb)
         WHERE id = CAST(:event_id AS uuid)
           AND (
